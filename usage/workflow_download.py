@@ -2,12 +2,11 @@ from jmcomic import *
 from jmcomic.cl import JmcomicUI
 
 # 下方填入你要下载的本子的id，一行一个，每行的首尾可以有空白字符
-jm_albums = str_to_list('''
-404482
-''')
+jm_albums = '''
 
-download_album(jm_albums)
 
+
+'''
 
 # 单独下载章节
 jm_photos = '''
@@ -126,6 +125,15 @@ def log_before_raise():
         resp = e.context.get(ExceptionTool.CONTEXT_KEY_RESP, None)
         if resp:
             content.append(f'响应文本: {resp.text}')
+
+        # 写文件
+        write_text(path, '\n'.join(content))
+
+    JmModuleConfig.register_exception_listener(JmcomicException, exception_listener)
+
+
+if __name__ == '__main__':
+    main()
 
         # 写文件
         write_text(path, '\n'.join(content))
